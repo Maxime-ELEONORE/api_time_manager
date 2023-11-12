@@ -13,7 +13,7 @@ config :time_manager_api,
 
 # Configures the endpoint
 config :time_manager_api, TimeManagerApiWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "0.0.0.0"],
   render_errors: [view: TimeManagerApiWeb.ErrorView, accepts: ~w(json), layout: false],
   pubsub_server: TimeManagerApi.PubSub,
   live_view: [signing_salt: "+45BzW60"]
