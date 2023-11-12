@@ -1,0 +1,47 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile_front
+    ports:
+      - "3000:3000"
+    networks:
+      - your-network
+    depends_on:
+      - backend
+
+  backend:
+    build: ./api_with_auth
+    env_file:
+      - ./api_with_auth/api_with_auth.env
+    entrypoint:
+      - ./api_with_auth/entrypoint.sh
+    ports:
+      - "4000:4000" # Assuming your backend runs on port 4000
+    volumes:
+      - .:/app
+    networks:
+      - your-network
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: time_manager_db
+    ports:
+      - "5432:5432"
+    networks:
+      - your-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+networks:
+  your-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
