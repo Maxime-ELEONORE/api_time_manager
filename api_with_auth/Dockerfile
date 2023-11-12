@@ -10,4 +10,4 @@ RUN mix deps.get
 RUN mix deps.compile
 RUN mix compile
 EXPOSE 4000
-CMD ["sh", "/app/entrypoint.sh"]
+CMD ["sh", "/app/run.sh"]
